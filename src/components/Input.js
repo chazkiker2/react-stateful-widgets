@@ -34,7 +34,7 @@ STEP 6:
   We need to add an extra prop to the <input /> element like so: value={inputValue}
 */
 
-import React, {useState} from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0 */
 
 export default function Input() {
   const [inputValue, setInputValue] = useState("");
@@ -61,7 +61,7 @@ export default function Input() {
       <h2>Input</h2>
       <div id='output' style={style}>
         {inputValue.toUpperCase()}  {/* STEP 3 */}
-      </div> 
+      </div>
       <div>
         <input id='input' type='text' value={inputValue} onChange={changeInput} /> {/* STEP 6 */}
         <button id='resetInput' onClick={reset}>Reset</button>
