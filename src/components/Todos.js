@@ -55,7 +55,7 @@ import React, { useState } from "react";
 // );
 
 const listOfItems = [
-	{ 
+	{
 		id: 0,
 		task: "Project",
 		complete: false,
@@ -75,22 +75,47 @@ const listOfItems = [
 	}
 ];
 
+function Item() {
+	const [complete, setComplete] = useState(false);
+	const [ignore, setIgnore] = useState(false);
+
+	const style = {
+		// fontSize: "1.5em",
+		// margin: "0.5em",
+		color: (complete ? "green" : "royalblue"),
+		textDecoration: (ignore ? "line-through" : "none"),
+	}
+
+	return (
+		<li>
+				<span style={style}>{item.task}</span>
+				<button onClick={() => markComplete}>Check</button>
+				<button onClick={() => markIgnored}>Cross</button>
+		</li>
+	);
+}
+
 export default function TodoApp() {
 	const [items, setItems] = useState(listOfItems);
-	
+
 	const addNew = (item) => {
-		setItems(items.concat(item));
+		setItems(items.push(new Item()));
+		// setItems(items.push(item));
 	};
 
-	const getClassName = (id) => {
-		let className = "task";
-		if (items[id].complete) {
-			className += " complete";
-		} else if (items[id].ignored) {
-			className += " ignored";
-		}
+	// const getClassName = (id) => {
+	// 	let className = "task";
+	// 	if (items[id].complete) {
+	// 		className += " complete";
+	// 	} else if (items[id].ignored) {
+	// 		className += " ignored";
+	// 	}
 
-		return className;
+	// 	return className;
+
+	// }
+
+	const makeItem = (item) => {
 
 	}
 
@@ -98,25 +123,15 @@ export default function TodoApp() {
 		<div className="todo container">
 			<h2>To-Do List</h2>
 			<div class="list">
-				
-					<ul>
-						{
-							items.map(item => 
-								<li 
-								id={item.id}
-								className={getClassName(id)}
-								>
-									{item.task}
-								</li>
-								
-							)
+				<ul>
+					{
+						items.map(item => new Item(item))
 
-						}
-
-					</ul>
-						
-					
+					}
+				</ul>
 				
+
+
 			</div>
 		</div>
 	);
