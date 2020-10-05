@@ -99,7 +99,7 @@ export default function TodoApp() {
 	const [items, setItems] = useState(listOfItems);
 
 	const addNew = (item) => {
-		setItems(items.push(new Item()));
+		// setItems(items.push(new Item()));
 		// setItems(items.push(item));
 	};
 
