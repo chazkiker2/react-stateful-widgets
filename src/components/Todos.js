@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 // import ReactDOM from "react-dom";
 
 
@@ -54,85 +55,78 @@ import React, { useState } from "react";
 // 	document.getElementById("todos")
 // );
 
-const listOfItems = [
-	{
-		id: 0,
-		task: "Project",
-		complete: false,
-		ignored: false,
-	},
-	{
-		id: 1,
-		task: "Daily Retros",
-		complete: false,
-		ignored: false,
-	},
-	{
-		id: 2,
-		task: "Track Team Meet",
-		complete: false,
-		ignored: false,
-	}
-];
+// const listOfItems = [
+// 	{
+// 		id: 0,
+// 		task: "Project",
+// 		complete: false,
+// 		ignored: false,
+// 	},
+// 	{
+// 		id: 1,
+// 		task: "Daily Retros",
+// 		complete: false,
+// 		ignored: false,
+// 	},
+// 	{
+// 		id: 2,
+// 		task: "Track Team Meet",
+// 		complete: false,
+// 		ignored: false,
+// 	}
+// ];
 
-function Item() {
+function Item(taskName) {
+	const [task, setTask] = useState(taskName);
 	const [complete, setComplete] = useState(false);
 	const [ignore, setIgnore] = useState(false);
 
 	const style = {
-		// fontSize: "1.5em",
-		// margin: "0.5em",
 		color: (complete ? "green" : "royalblue"),
 		textDecoration: (ignore ? "line-through" : "none"),
 	}
 
+	const getClassComplete = () => {
+		return "taskButton "+(complete ? "complete" : "");
+	}
+
+	const getClassIgnore = () => {
+		return "taskButton "+(ignore ? "ignore" : "");
+	}
+
 	return (
 		<li>
-				<span style={style}>{item.task}</span>
-				<button onClick={() => markComplete}>Check</button>
-				<button onClick={() => markIgnored}>Cross</button>
+				<span style={style}>{task}</span>
+				<button className={getClassComplete()}  onClick={() => setComplete(!complete)}>Check</button>
+				<button className={getClassIgnore()} onClick={() => setIgnore(!ignore)}>Cross</button>
 		</li>
 	);
 }
 
 export default function TodoApp() {
-	const [items, setItems] = useState(listOfItems);
+	const [items, setItems] = useState(null);
+	const [inputValue, setInputValue] = useState("");
 
 	const addNew = (item) => {
-		// setItems(items.push(new Item()));
-		// setItems(items.push(item));
+		items.push(item);
 	};
 
-	// const getClassName = (id) => {
-	// 	let className = "task";
-	// 	if (items[id].complete) {
-	// 		className += " complete";
-	// 	} else if (items[id].ignored) {
-	// 		className += " ignored";
-	// 	}
-
-	// 	return className;
-
-	// }
-
-	const makeItem = (item) => {
-
-	}
+  const changeInput = evt => {
+    const { value } = evt.target;
+    setInputValue(value);
+	};
+	const reset = () => {
+    setInputValue("");
+  };
 
 	return (
-		<div className="todo container">
+		<div className="todo-widget container">
 			<h2>To-Do List</h2>
-			<div class="list">
-				<ul>
-					{
-						items.map(item => new Item(item))
-
-					}
-				</ul>
-				
-
-
-			</div>
+			<ul>
+				{	items.map(i => {return i})	}
+			</ul>
+			<input id='input' type='text' value={inputValue} onChange={changeInput} />
+			<button id='resetInput' onClick={reset}>Reset</button>
 		</div>
 	);
 }

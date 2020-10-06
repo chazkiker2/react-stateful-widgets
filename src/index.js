@@ -18,7 +18,6 @@ render(
 		<Squares />
 		<Programmers />
 		<TodoApp />
-	</>
-	,
+	</>,
 	document.querySelector('#root')
 );
